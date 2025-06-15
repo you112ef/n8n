@@ -10,26 +10,27 @@ n8n is a workflow automation platform that gives technical teams the flexibility
 
 - **Code When You Need It**: Write JavaScript/Python, add npm packages, or use the visual interface
 - **AI-Native Platform**: Build AI agent workflows based on LangChain with your own data and models
-- **Full Control**: Self-host with our fair-code license or use our [cloud offering](https://app.n8n.cloud/login)
-- **Enterprise-Ready**: Advanced permissions, SSO, and air-gapped deployments
+- **Flexible Deployment**: Adaptable to various environments, including self-hosting, n8n's cloud offering, and cloud platforms like Cloudflare. Leverages a fair-code license.
+- **Enterprise-Ready**: Offers advanced permissions and SSO. (Note: Air-gapped deployment typically applies to self-hosted instances).
 - **Active Community**: 400+ integrations and 900+ ready-to-use [templates](https://n8n.io/workflows)
 
-## Quick Start
+## Quick Start - Cloudflare Deployment
 
-Try n8n instantly with [npx](https://docs.n8n.io/hosting/installation/npm/) (requires [Node.js](https://nodejs.org/en/)):
+n8n can be deployed to Cloudflare, allowing you to leverage its global network and services. The specific deployment steps will vary depending on the Cloudflare services you choose to use (e.g., Cloudflare Workers, Cloudflare Pages with Functions, or other container solutions).
 
-```
-npx n8n
-```
+1.  **Choose your Cloudflare service:** Determine the best Cloudflare service for your n8n deployment based on your needs (scalability, state management, etc.).
+2.  **Configure n8n for Cloudflare:** To run n8n effectively on Cloudflare, you'll likely need to address the following configuration aspects:
+    *   **Database Configuration:** Set up a persistent database for n8n. This might involve using Cloudflare D1, Workers KV (for specific, limited use-cases like caching, not as a primary database), or configuring n8n to connect to an external database that is network-accessible from your Cloudflare deployment.
+    *   **Environment Variables:** Securely store all necessary API keys, n8n's encryption key (`N8N_ENCRYPTION_KEY`), database credentials, and other sensitive settings using your Cloudflare service's provided mechanisms for environment variables.
+    *   **Execution Mode & Webhooks:** Ensure n8n's execution mode (e.g., `main`, `webhook`, `queue`) is correctly configured. If using webhooks to trigger workflows, ensure they are properly exposed and secured through your Cloudflare setup.
+    *   **Resource Considerations:** Be mindful of the resource limits (CPU, memory, execution duration, storage) imposed by your chosen Cloudflare service. You may need to optimize your n8n instance or workflows, or choose a Cloudflare plan that meets n8n's requirements, especially for high-volume or complex workflows.
+    *   **Custom Domain (Optional):** After initial deployment, you will likely want to configure a custom domain for your n8n instance through the Cloudflare dashboard.
+3.  **Deploy to Cloudflare:** Follow the Cloudflare documentation for deploying Node.js applications or containers to your selected service.
+    *   [Cloudflare Workers Documentation](https://developers.cloudflare.com/workers/)
+    *   [Cloudflare Pages Documentation](https://developers.cloudflare.com/pages/)
+4.  **Access your n8n instance:** Once deployed, you should be able to access your n8n editor and API at the URL provided by your Cloudflare deployment (e.g., `https://your-n8n-instance.yourdomain.workers.dev` or `https://your-n8n-instance.pages.dev`).
 
-Or deploy with [Docker](https://docs.n8n.io/hosting/installation/docker/):
-
-```
-docker volume create n8n_data
-docker run -it --rm --name n8n -p 5678:5678 -v n8n_data:/home/node/.n8n docker.n8n.io/n8nio/n8n
-```
-
-Access the editor at http://localhost:5678
+For detailed guidance, refer to the official Cloudflare documentation and any n8n community resources or guides that may become available for your specific Cloudflare setup.
 
 ## Resources
 
@@ -50,7 +51,7 @@ Need help? Our community forum is the place to get support and connect with othe
 n8n is [fair-code](https://faircode.io) distributed under the [Sustainable Use License](https://github.com/n8n-io/n8n/blob/master/LICENSE.md) and [n8n Enterprise License](https://github.com/n8n-io/n8n/blob/master/LICENSE_EE.md).
 
 - **Source Available**: Always visible source code
-- **Self-Hostable**: Deploy anywhere
+- **Self-Hostable & Cloud-Adaptable**: Designed for flexible deployment, including self-hosting or on cloud platforms.
 - **Extensible**: Add your own nodes and functionality
 
 [Enterprise licenses](mailto:license@n8n.io) available for additional features and support.
